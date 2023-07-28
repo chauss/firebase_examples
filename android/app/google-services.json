@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "302156416436",
+    "project_id": "fir-examples-ff4ed",
+    "storage_bucket": "fir-examples-ff4ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:302156416436:android:997240c6dcaedbab8b5ee1",
+        "android_client_info": {
+          "package_name": "de.chauss.firebase_examples.firebase_examples"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "302156416436-ndnm05ckpcp17afds5ap2dm9hsa22qll.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZacbovi01f0U2MkF1-iWCSwgvcYoVCmg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "302156416436-ndnm05ckpcp17afds5ap2dm9hsa22qll.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "302156416436-ljcjbim25ahlakl3k4g0ceh0cqoi7aie.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "de.chauss.firebaseexamples.firebaseExamples.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

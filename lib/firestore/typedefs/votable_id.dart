@@ -1,0 +1,1 @@
+typedef VotableId = String;
