@@ -1,5 +1,5 @@
 import 'package:firebase_examples/firestore/constants/firestore_strings.dart';
-import 'package:firebase_examples/firestore/models/votable_payload.dart';
+import 'package:firebase_examples/firestore/models/create_votable_dto.dart';
 import 'package:firebase_examples/firestore/providers/votable_update/votable_update_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -32,7 +32,7 @@ class AddVotableWidget extends ConsumerWidget {
           onPressed: () {
             if (controller.text.isNotEmpty) {
               votableUpdateNotifier.addVotable(
-                VotablePayload(name: controller.text, votes: 0),
+                CreateVotableDTO(name: controller.text, votes: 0),
               );
               controller.text = "";
             }

@@ -4,8 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_examples/firestore/models/votable.dart';
 import 'package:firebase_examples/firestore/models/votables_key.dart';
 
-class VotablePayload extends MapView<String, dynamic> {
-  VotablePayload({
+class CreateVotableDTO extends MapView<String, dynamic> {
+  CreateVotableDTO({
     required String name,
     required int votes,
   }) : super({
@@ -14,8 +14,8 @@ class VotablePayload extends MapView<String, dynamic> {
           VotablesKey.createdAt: FieldValue.serverTimestamp()
         });
 
-  factory VotablePayload.fromVotable(Votable votable) {
-    return VotablePayload(
+  factory CreateVotableDTO.fromVotable(Votable votable) {
+    return CreateVotableDTO(
       name: votable.name,
       votes: votable.votes,
     );

@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_examples/firestore/constants/firestore_collections.dart';
+import 'package:firebase_examples/firestore/models/update_votable_votes_dto.dart';
 import 'package:firebase_examples/firestore/models/votable.dart';
-import 'package:firebase_examples/firestore/models/votable_payload.dart';
-import 'package:firebase_examples/firestore/models/votables_key.dart';
+import 'package:firebase_examples/firestore/models/create_votable_dto.dart';
 import 'package:firebase_examples/firestore/typedefs/votable_id.dart';
 import 'package:firebase_examples/typedefs/is_loading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,19 +14,19 @@ class VotableUpdateNotifier extends StateNotifier<IsLoading> {
 
   Future<bool> decreaseVotes(Votable votable) async {
     isLoading = true;
-    final couldUpdate = _update(votable.votableId, votable.votes - 1);
+    final couldUpdate = _update(votable.votableId, Voting.decrease);
     isLoading = false;
     return couldUpdate;
   }
 
   Future<bool> increaseVotes(Votable votable) async {
     isLoading = true;
-    final couldUpdate = _update(votable.votableId, votable.votes + 1);
+    final couldUpdate = _update(votable.votableId, Voting.increase);
     isLoading = false;
     return couldUpdate;
   }
 
-  Future<bool> addVotable(VotablePayload votablePayload) async {
+  Future<bool> addVotable(CreateVotableDTO votablePayload) async {
     isLoading = true;
 
     final couldAdd = _add(votablePayload);
@@ -35,12 +35,12 @@ class VotableUpdateNotifier extends StateNotifier<IsLoading> {
     return couldAdd;
   }
 
-  Future<bool> _update(VotableId votableId, int votes) async {
+  Future<bool> _update(VotableId votableId, Voting voting) async {
     final doc = FirebaseFirestore.instance
         .collection(FirestoreCollections.votables)
         .doc(votableId);
     try {
-      doc.update({VotablesKey.votes: votes});
+      doc.update(IncreaseVotableVotesDTO(voting: voting));
     } catch (error) {
       print("Error while updating Votable: $error");
       return false;
@@ -48,7 +48,7 @@ class VotableUpdateNotifier extends StateNotifier<IsLoading> {
     return true;
   }
 
-  Future<bool> _add(VotablePayload votablePayload) async {
+  Future<bool> _add(CreateVotableDTO votablePayload) async {
     final ref =
         FirebaseFirestore.instance.collection(FirestoreCollections.votables);
     try {
