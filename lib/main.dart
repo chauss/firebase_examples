@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_examples/constants/main_strings.dart';
 import 'package:firebase_examples/firebase_options.dart';
 import 'package:firebase_examples/firestore/firestore_page.dart';
 import 'package:firebase_examples/firestore/constants/firestore_strings.dart';
+import 'package:firebase_examples/widgets/go_to_example_button.dart';
 import 'package:firebase_examples/widgets/web_container_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,15 +45,31 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Firebase examples"),
+        title: const Text(MainStrings.title),
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const FirestorePage()),
-          ),
-          child: const Text(FirestoreStrings.title),
+      body: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Image.asset(
+                  'assets/icons/firebase_examples_round.png',
+                  width: 140,
+                ),
+                const SizedBox(width: 20),
+                Text(
+                  MainStrings.examples,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+              ],
+            ),
+            const SizedBox(height: 60),
+            const GoToExampleButton(
+              examplePage: FirestorePage(),
+              title: FirestoreStrings.title,
+            ),
+          ],
         ),
       ),
     );
