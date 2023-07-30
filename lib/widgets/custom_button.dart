@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 
-class GoToExampleButton extends StatelessWidget {
-  final Widget examplePage;
+class CustomButton extends StatelessWidget {
+  final VoidCallback onPressed;
   final String title;
 
-  const GoToExampleButton({
+  const CustomButton({
     super.key,
-    required this.examplePage,
+    required this.onPressed,
     required this.title,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => examplePage),
-      ),
+      onPressed: onPressed,
       child: SizedBox(
         height: 50,
         child: Center(

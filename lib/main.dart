@@ -1,17 +1,22 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_examples/authentication/authentication_page.dart';
+import 'package:firebase_examples/authentication/constants/authentication_strings.dart';
 import 'package:firebase_examples/constants/main_strings.dart';
 import 'package:firebase_examples/firebase_options.dart';
 import 'package:firebase_examples/firestore/firestore_page.dart';
 import 'package:firebase_examples/firestore/constants/firestore_strings.dart';
-import 'package:firebase_examples/widgets/go_to_example_button.dart';
+import 'package:firebase_examples/widgets/custom_button.dart';
 import 'package:firebase_examples/widgets/web_container_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logging/logging.dart';
 
 Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  configureLogging();
 
   runApp(
     const ProviderScope(
@@ -25,7 +30,6 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -65,8 +69,20 @@ class HomePage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 60),
-            const GoToExampleButton(
-              examplePage: FirestorePage(),
+            CustomButton(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const AuthenticationPage()),
+              ),
+              title: AuthenticationStrings.title,
+            ),
+            const SizedBox(height: 20),
+            CustomButton(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const FirestorePage()),
+              ),
               title: FirestoreStrings.title,
             ),
           ],
@@ -74,4 +90,13 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+}
+
+void configureLogging() {
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((event) {
+    // ignore: avoid_print
+    print(
+        '[${event.level.name}] ${event.loggerName} ${event.time}: ${event.message}');
+  });
 }

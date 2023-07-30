@@ -6,8 +6,11 @@ import 'package:firebase_examples/firestore/models/create_votable_dto.dart';
 import 'package:firebase_examples/firestore/typedefs/votable_id.dart';
 import 'package:firebase_examples/typedefs/is_loading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logging/logging.dart';
 
 class VotableUpdateNotifier extends StateNotifier<IsLoading> {
+  static final log = Logger('VotableUpdateNotifier');
+
   VotableUpdateNotifier() : super(false);
 
   set isLoading(bool value) => state = value;
@@ -42,7 +45,7 @@ class VotableUpdateNotifier extends StateNotifier<IsLoading> {
     try {
       doc.update(IncreaseVotableVotesDTO(voting: voting));
     } catch (error) {
-      print("Error while updating Votable: $error");
+      log.warning("Error while updating Votable: $error");
       return false;
     }
     return true;
@@ -54,7 +57,7 @@ class VotableUpdateNotifier extends StateNotifier<IsLoading> {
     try {
       ref.add(votablePayload);
     } catch (error) {
-      print("Error while adding VotablePayload: $error");
+      log.warning("Error while adding VotablePayload: $error");
       return false;
     }
     return true;
